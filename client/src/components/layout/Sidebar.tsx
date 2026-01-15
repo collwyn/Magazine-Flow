@@ -1,18 +1,29 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, ShoppingCart, Users, Package, FileText, Settings, LogOut, Newspaper } from "lucide-react";
+import { LayoutDashboard, ShoppingCart, Users, Package, FileText, Settings, LogOut, BookOpen } from "lucide-react";
 import logo from "@assets/generated_images/minimalist_magazine_distribution_logo,_white_on_blue.png";
-
-const menuItems = [
-  { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
-  { icon: Package, label: "Inventory", href: "/inventory" },
-  { icon: ShoppingCart, label: "Orders", href: "/orders" },
-  { icon: Users, label: "Retailers", href: "/retailers" },
-  { icon: FileText, label: "Invoices", href: "/invoices" },
-];
+import { useAuth } from "@/context/AuthContext";
 
 export function Sidebar() {
   const [location] = useLocation();
+  const { user } = useAuth();
+  
+  const isAdmin = user.role === 'admin';
+
+  const menuItems = isAdmin 
+    ? [
+        { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
+        { icon: Package, label: "Inventory", href: "/inventory" },
+        { icon: ShoppingCart, label: "All Orders", href: "/orders" },
+        { icon: Users, label: "Retailers", href: "/retailers" },
+        { icon: FileText, label: "Invoices", href: "/invoices" },
+      ]
+    : [
+        { icon: LayoutDashboard, label: "My Dashboard", href: "/dashboard" },
+        { icon: BookOpen, label: "Catalog", href: "/catalog" },
+        { icon: ShoppingCart, label: "My Orders", href: "/orders" },
+        { icon: FileText, label: "My Invoices", href: "/invoices" },
+      ];
 
   return (
     <div className="h-full w-64 bg-sidebar text-sidebar-foreground border-r border-sidebar-border flex flex-col">

@@ -7,7 +7,9 @@ import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import Dashboard from "@/pages/dashboard/Dashboard";
 import Inventory from "@/pages/inventory/Inventory";
 import Orders from "@/pages/orders/Orders";
+import Catalog from "@/pages/catalog/Catalog";
 import Login from "@/pages/auth/Login";
+import { AuthProvider } from "@/context/AuthContext";
 
 function Router() {
   return (
@@ -24,6 +26,9 @@ function Router() {
       <Route path="/orders">
         <DashboardLayout><Orders /></DashboardLayout>
       </Route>
+      <Route path="/catalog">
+        <DashboardLayout><Catalog /></DashboardLayout>
+      </Route>
       
       <Route path="/">
         <DashboardLayout><Dashboard /></DashboardLayout>
@@ -37,8 +42,10 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Toaster />
-      <Router />
+      <AuthProvider>
+        <Toaster />
+        <Router />
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

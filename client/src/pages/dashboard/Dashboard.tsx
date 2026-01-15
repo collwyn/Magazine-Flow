@@ -1,8 +1,9 @@
-import { mockOrders, mockRetailers, mockMagazines } from "@/lib/mockData";
+import { mockOrders, mockRetailers } from "@/lib/mockData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowUpRight, ArrowDownRight, Package, ShoppingCart, Users, DollarSign } from "lucide-react";
+import { ArrowUpRight, ArrowDownRight, Package, ShoppingCart, Users, DollarSign, CreditCard, Wallet } from "lucide-react";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/context/AuthContext";
 
 const salesData = [
   { name: "Jan", total: 1200 },
@@ -14,7 +15,15 @@ const salesData = [
 ];
 
 export default function Dashboard() {
-  const stats = [
+  const { user } = useAuth();
+  const isAdmin = user.role === 'admin';
+
+  // Calculate Retailer Specific Stats
+  const myRetailer = mockRetailers.find(r => r.id === user.retailerId);
+  const myOrders = mockOrders.filter(o => o.retailerId === user.retailerId);
+  const myTotalSpent = myOrders.reduce((acc, curr) => acc + curr.totalAmount, 0);
+
+  const adminStats = [
     {
       title: "Total Revenue",
       value: "$45,231.89",
@@ -53,11 +62,57 @@ export default function Dashboard() {
     },
   ];
 
+  const retailerStats = [
+    {
+      title: "My Total Orders",
+      value: `${myOrders.length}`,
+      change: "Last 30 days",
+      trend: "up",
+      icon: ShoppingCart,
+      color: "text-blue-600",
+      bgColor: "bg-blue-100/50",
+    },
+    {
+      title: "Total Spent",
+      value: `$${myTotalSpent.toFixed(2)}`,
+      change: "Lifetime value",
+      trend: "up",
+      icon: DollarSign,
+      color: "text-emerald-600",
+      bgColor: "bg-emerald-100/50",
+    },
+    {
+      title: "Available Credit",
+      value: `$${myRetailer ? (myRetailer.creditLimit - myRetailer.currentBalance).toFixed(2) : '0.00'}`,
+      change: `Limit: $${myRetailer?.creditLimit}`,
+      trend: "neutral",
+      icon: Wallet,
+      color: "text-violet-600",
+      bgColor: "bg-violet-100/50",
+    },
+    {
+      title: "Current Balance",
+      value: `$${myRetailer?.currentBalance.toFixed(2)}`,
+      change: "Due in 15 days",
+      trend: "down",
+      icon: CreditCard,
+      color: "text-amber-600",
+      bgColor: "bg-amber-100/50",
+    },
+  ];
+
+  const stats = isAdmin ? adminStats : retailerStats;
+  const displayedOrders = isAdmin ? mockOrders.slice(0, 5) : myOrders.slice(0, 5);
+
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-3xl font-heading font-bold tracking-tight text-foreground">Dashboard</h2>
-        <p className="text-muted-foreground mt-1">Overview of your distribution performance.</p>
+        <h2 className="text-3xl font-heading font-bold tracking-tight text-foreground">
+          {isAdmin ? "Admin Dashboard" : `Welcome, ${myRetailer?.contactPerson || user.username}`}
+        </h2>
+        <p className="text-muted-foreground mt-1">
+          {isAdmin ? "Overview of your distribution performance." : `Store: ${myRetailer?.name || 'N/A'}`}
+        </p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -74,12 +129,12 @@ export default function Dashboard() {
             <CardContent>
               <div className="text-2xl font-bold font-heading">{stat.value}</div>
               <p className="text-xs text-muted-foreground flex items-center mt-1">
-                {stat.trend === "up" ? (
-                  <ArrowUpRight className="mr-1 h-3 w-3 text-emerald-500" />
-                ) : (
-                  <ArrowDownRight className="mr-1 h-3 w-3 text-red-500" />
-                )}
-                <span className={stat.trend === "up" ? "text-emerald-600" : "text-amber-600"}>
+                {stat.trend === "up" && <ArrowUpRight className="mr-1 h-3 w-3 text-emerald-500" />}
+                {stat.trend === "down" && <ArrowDownRight className="mr-1 h-3 w-3 text-red-500" />}
+                <span className={cn(
+                    stat.trend === "up" ? "text-emerald-600" : 
+                    stat.trend === "down" ? "text-amber-600" : "text-muted-foreground"
+                )}>
                   {stat.change}
                 </span>
               </p>
@@ -91,7 +146,7 @@ export default function Dashboard() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="col-span-4 border-none shadow-sm">
           <CardHeader>
-            <CardTitle className="font-heading text-lg">Revenue Overview</CardTitle>
+            <CardTitle className="font-heading text-lg">{isAdmin ? "Revenue Overview" : "Spending History"}</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
             <div className="h-[300px]">
@@ -139,13 +194,15 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
-              {mockOrders.slice(0, 5).map((order) => {
+              {displayedOrders.length === 0 ? (
+                  <div className="text-muted-foreground text-sm text-center py-4">No recent orders found.</div>
+              ) : displayedOrders.map((order) => {
                 const retailer = mockRetailers.find(r => r.id === order.retailerId);
                 return (
                   <div key={order.id} className="flex items-center">
                     <div className="ml-4 space-y-1 flex-1">
-                      <p className="text-sm font-medium leading-none">{retailer?.name}</p>
-                      <p className="text-sm text-muted-foreground">{order.orderNumber}</p>
+                      <p className="text-sm font-medium leading-none">{isAdmin ? retailer?.name : order.orderNumber}</p>
+                      <p className="text-sm text-muted-foreground">{isAdmin ? order.orderNumber : order.orderDate}</p>
                     </div>
                     <div className="flex items-center gap-4">
                         <div className={cn(
