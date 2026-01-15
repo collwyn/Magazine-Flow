@@ -1,10 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle, Globe, BarChart3, ShieldCheck, ArrowRight, PlayCircle } from "lucide-react";
+import { CheckCircle, ArrowRight, PlayCircle, BookOpen, Truck, RefreshCw, ShieldCheck } from "lucide-react";
 import { useLocation } from "wouter";
 import logo from "@assets/generated_images/minimalist_magazine_distribution_logo,_white_on_blue.png";
-import heroImage from "@assets/generated_images/abstract_magazine_distribution_network_visualization.png";
+import heroImage from "@assets/generated_images/modern_boutique_magazine_display_rack.png";
 
 export default function LandingPage() {
   const [, setLocation] = useLocation();
@@ -25,9 +24,9 @@ export default function LandingPage() {
           <span className="font-heading font-bold text-xl tracking-wide">ICONIC</span>
         </div>
         <div className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
-            <a href="#features" className="hover:text-primary transition-colors">Solutions</a>
-            <a href="#about" className="hover:text-primary transition-colors">About Us</a>
-            <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
+            <a href="#catalog" className="hover:text-primary transition-colors">Catalog</a>
+            <a href="#how-it-works" className="hover:text-primary transition-colors">How it Works</a>
+            <a href="#pricing" className="hover:text-primary transition-colors">Pricing</a>
         </div>
         <div className="flex items-center gap-4">
             <a href="#" className="text-sm font-medium hover:text-primary hidden sm:block">Support</a>
@@ -42,28 +41,28 @@ export default function LandingPage() {
                 <div className="space-y-8 animate-in slide-in-from-bottom-8 fade-in duration-700">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold uppercase tracking-wider border border-blue-100">
                         <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-                        The Future of Distribution
+                        For Bookstores, Cafes & Boutiques
                     </div>
                     <h1 className="text-5xl lg:text-7xl font-heading font-bold leading-[1.1] tracking-tight">
-                        Global Reach, <br/>
-                        <span className="text-primary">Local Precision.</span>
+                        Stock Your Shelves <br/>
+                        <span className="text-primary">With The Best.</span>
                     </h1>
                     <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
-                        Streamline your magazine distribution with our AI-powered logistics platform. Real-time inventory tracking, automated billing, and predictive analytics for modern publishers and retailers.
+                        Access a curated catalog of premium magazines for your storefront. Easy wholesale ordering, next-day delivery, and flexible returns for modern retailers.
                     </p>
                     
                     <div className="flex flex-col sm:flex-row gap-4 pt-4">
                         <Button size="lg" className="h-14 px-8 text-lg shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90 transition-all hover:translate-y-[-2px]" onClick={() => setLocation("/dashboard")}>
-                            Get Started <ArrowRight className="ml-2 h-5 w-5" />
+                            Start Ordering <ArrowRight className="ml-2 h-5 w-5" />
                         </Button>
                         <Button size="lg" variant="outline" className="h-14 px-8 text-lg border-2 hover:bg-secondary/50">
-                            <PlayCircle className="mr-2 h-5 w-5" /> Watch Demo
+                            <PlayCircle className="mr-2 h-5 w-5" /> Browse Catalog
                         </Button>
                     </div>
 
                     <div className="pt-8 flex items-center gap-8 text-muted-foreground grayscale opacity-70">
-                        <div className="flex items-center gap-2 text-sm font-bold"><ShieldCheck className="h-5 w-5" /> Trusted by 500+ Publishers</div>
-                        <div className="flex items-center gap-2 text-sm font-bold"><Globe className="h-5 w-5" /> 50+ Countries</div>
+                        <div className="flex items-center gap-2 text-sm font-bold"><ShieldCheck className="h-5 w-5" /> 100% Return Policy</div>
+                        <div className="flex items-center gap-2 text-sm font-bold"><Truck className="h-5 w-5" /> Free Shipping over $200</div>
                     </div>
                 </div>
 
@@ -77,24 +76,24 @@ export default function LandingPage() {
                                 <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
                                 <img 
                                     src={heroImage} 
-                                    alt="Distribution Network" 
+                                    alt="Modern Magazine Rack" 
                                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
                                 />
                                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white z-20">
-                                    <p className="font-heading font-bold text-xl">Global Logistics</p>
-                                    <p className="text-sm text-white/80">Connecting publishers to readers worldwide.</p>
+                                    <p className="font-heading font-bold text-xl">Curated Collections</p>
+                                    <p className="text-sm text-white/80">From fashion to tech, find what your customers love.</p>
                                 </div>
                             </div>
 
                             {/* Login Form Side */}
                             <div className="md:col-span-2 p-8 bg-white/95 flex flex-col justify-center">
                                 <div className="mb-6">
-                                    <h3 className="font-heading font-bold text-2xl mb-1">Welcome Back</h3>
-                                    <p className="text-sm text-muted-foreground">Access your retailer dashboard.</p>
+                                    <h3 className="font-heading font-bold text-2xl mb-1">Retailer Login</h3>
+                                    <p className="text-sm text-muted-foreground">Manage your orders & inventory.</p>
                                 </div>
                                 <form onSubmit={handleLogin} className="space-y-4">
                                     <div className="space-y-2">
-                                        <Input type="email" placeholder="Email Address" className="bg-gray-50 border-gray-200 focus:bg-white transition-all" />
+                                        <Input type="email" placeholder="Store Email" className="bg-gray-50 border-gray-200 focus:bg-white transition-all" />
                                     </div>
                                     <div className="space-y-2">
                                         <Input type="password" placeholder="Password" className="bg-gray-50 border-gray-200 focus:bg-white transition-all" />
@@ -103,7 +102,7 @@ export default function LandingPage() {
                                         Sign In
                                     </Button>
                                     <div className="text-center text-xs text-muted-foreground mt-4">
-                                        <a href="#" className="hover:text-primary transition-colors">Forgot your password?</a>
+                                        <a href="#" className="hover:text-primary transition-colors">Apply for a wholesale account</a>
                                     </div>
                                 </form>
                             </div>
@@ -122,9 +121,9 @@ export default function LandingPage() {
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid md:grid-cols-3 gap-8">
                     {[
-                        { title: "Real-Time Tracking", desc: "Monitor inventory levels and shipments with millisecond precision.", icon: Globe },
-                        { title: "Automated Fulfillment", desc: "AI-driven algorithms optimize your supply chain automatically.", icon: CheckCircle },
-                        { title: "Predictive Analytics", desc: "Forecast demand trends before they happen with our data engine.", icon: BarChart3 }
+                        { title: "Curated Catalog", desc: "Browse thousands of top-tier titles across every niche category.", icon: BookOpen },
+                        { title: "Next-Day Delivery", desc: "Order by 5PM and get your stock refreshed the very next morning.", icon: Truck },
+                        { title: "Flexible Returns", desc: "Unsold copies? No problem. Return them for full credit on your next order.", icon: RefreshCw }
                     ].map((feature, i) => (
                         <div key={i} className="flex gap-4 items-start p-4 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-300">
                             <div className="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
@@ -143,11 +142,11 @@ export default function LandingPage() {
         {/* CTA Section */}
         <section className="py-24 px-6">
             <div className="max-w-5xl mx-auto text-center space-y-8">
-                <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground">Ready to scale your distribution?</h2>
-                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Join the world's leading magazine distributors and retailers on the ICONIC platform.</p>
+                <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground">Fill your shelves with culture.</h2>
+                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Join 500+ independent retailers who trust ICONIC for their magazine inventory.</p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                    <Button size="lg" className="h-12 px-8">Become a Partner</Button>
-                    <Button size="lg" variant="outline" className="h-12 px-8">Contact Sales</Button>
+                    <Button size="lg" className="h-12 px-8">Open Retail Account</Button>
+                    <Button size="lg" variant="outline" className="h-12 px-8">View Wholesale Pricing</Button>
                 </div>
             </div>
         </section>
@@ -161,23 +160,23 @@ export default function LandingPage() {
                         <span className="font-heading font-bold text-lg">ICONIC</span>
                     </div>
                     <p className="max-w-sm text-slate-400 text-sm">
-                        Empowering the publishing industry with next-generation distribution technology.
+                        The premier wholesale partner for independent bookstores, newsstands, and boutiques.
                     </p>
                 </div>
                 <div>
-                    <h4 className="text-white font-bold mb-4">Platform</h4>
+                    <h4 className="text-white font-bold mb-4">Retailers</h4>
                     <ul className="space-y-2 text-sm">
-                        <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
-                        <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
-                        <li><a href="#" className="hover:text-white transition-colors">Retailers</a></li>
-                        <li><a href="#" className="hover:text-white transition-colors">Publishers</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors">Apply for Account</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors">Catalog</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors">Return Policy</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors">Shipping FAQ</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 className="text-white font-bold mb-4">Company</h4>
                     <ul className="space-y-2 text-sm">
-                        <li><a href="#" className="hover:text-white transition-colors">About</a></li>
-                        <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors">Our Team</a></li>
                         <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
                         <li><a href="#" className="hover:text-white transition-colors">Privacy</a></li>
                     </ul>
