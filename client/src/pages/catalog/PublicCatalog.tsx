@@ -6,10 +6,10 @@ import { Link } from "wouter";
 import logo from "@assets/generated_images/minimalist_magazine_distribution_logo,_white_on_blue.png";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { useData } from "@/context/DataContext";
+import { useMagazines } from "@/hooks/useApi";
 
 export default function PublicCatalog() {
-  const { magazines } = useData();
+  const { data: magazines = [], isLoading } = useMagazines();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   
   const categories = Array.from(new Set(magazines.map(m => m.category)));

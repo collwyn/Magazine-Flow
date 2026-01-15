@@ -12,8 +12,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Search, Filter, AlertTriangle } from "lucide-react";
 import { useState } from "react";
-import { useData } from "@/context/DataContext";
-import { Magazine } from "@/lib/mockData";
+import { useMagazines, useUpdateMagazine } from "@/hooks/useApi";
+import type { Magazine } from "@shared/schema";
 import {
   Dialog,
   DialogContent,
@@ -24,9 +24,11 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 
 export default function Inventory() {
-  const { magazines, updateMagazine } = useData();
+  const { data: magazines = [], isLoading } = useMagazines();
+  const updateMagazine = useUpdateMagazine();
   const [searchTerm, setSearchTerm] = useState("");
   const [editingMagazine, setEditingMagazine] = useState<Magazine | null>(null);
   const [editForm, setEditForm] = useState<Partial<Magazine>>({});
@@ -43,10 +45,29 @@ export default function Inventory() {
 
   const handleSave = () => {
     if (editingMagazine && editForm) {
-      updateMagazine(editingMagazine.id, editForm);
-      setEditingMagazine(null);
+      const { id, createdAt, ...updateData } = editForm;
+      updateMagazine.mutate(
+        { id: editingMagazine.id, data: updateData },
+        {
+          onSuccess: () => {
+            toast.success("Magazine updated successfully");
+            setEditingMagazine(null);
+          },
+          onError: (error) => {
+            toast.error(`Failed to update: ${error.message}`);
+          },
+        }
+      );
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-muted-foreground">Loading magazines...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -107,7 +128,7 @@ export default function Inventory() {
                     </Badge>
                   </TableCell>
                   <TableCell className="font-mono text-xs text-muted-foreground">{mag.sku}</TableCell>
-                  <TableCell className="text-right font-medium">${mag.price.toFixed(2)}</TableCell>
+                  <TableCell className="text-right font-medium">${parseFloat(mag.price).toFixed(2)}</TableCell>
                   <TableCell className="text-center">
                     <div className="flex flex-col items-center gap-1">
                          <span className={mag.stock < 50 ? "text-destructive font-bold" : ""}>{mag.stock}</span>
@@ -144,7 +165,7 @@ export default function Inventory() {
                           </div>
                           <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="price" className="text-right">Price</Label>
-                            <Input id="price" type="number" step="0.01" value={editForm.price || 0} onChange={(e) => setEditForm({...editForm, price: parseFloat(e.target.value)})} className="col-span-3" />
+                            <Input id="price" type="number" step="0.01" value={editForm.price || '0'} onChange={(e) => setEditForm({...editForm, price: e.target.value})} className="col-span-3" />
                           </div>
                           <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="stock" className="text-right">Stock</Label>

@@ -12,8 +12,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Plus, Search, Filter } from "lucide-react";
 import { useState } from "react";
-import { useData } from "@/context/DataContext";
-import { DisplayProduct } from "@/lib/mockData";
+import { useDisplays, useUpdateDisplay } from "@/hooks/useApi";
+import type { Display } from "@shared/schema";
 import {
   Dialog,
   DialogContent,
@@ -26,12 +26,14 @@ import {
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { toast } from "sonner";
 
 export default function ManageDisplays() {
-  const { displays, updateDisplay } = useData();
+  const { data: displays = [], isLoading } = useDisplays();
+  const updateDisplay = useUpdateDisplay();
   const [searchTerm, setSearchTerm] = useState("");
-  const [editingDisplay, setEditingDisplay] = useState<DisplayProduct | null>(null);
-  const [editForm, setEditForm] = useState<Partial<DisplayProduct>>({});
+  const [editingDisplay, setEditingDisplay] = useState<Display | null>(null);
+  const [editForm, setEditForm] = useState<Partial<Display>>({});
 
   const filteredDisplays = displays.filter(display => 
     display.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -44,10 +46,29 @@ export default function ManageDisplays() {
 
   const handleSave = () => {
     if (editingDisplay && editForm) {
-      updateDisplay(editingDisplay.id, editForm);
-      setEditingDisplay(null);
+      const { id, createdAt, ...updateData } = editForm;
+      updateDisplay.mutate(
+        { id: editingDisplay.id, data: updateData },
+        {
+          onSuccess: () => {
+            toast.success("Display updated successfully");
+            setEditingDisplay(null);
+          },
+          onError: (error) => {
+            toast.error(`Failed to update: ${error.message}`);
+          },
+        }
+      );
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-muted-foreground">Loading displays...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -105,7 +126,7 @@ export default function ManageDisplays() {
                     </Badge>
                   </TableCell>
                   <TableCell className="text-xs text-muted-foreground">{display.dimensions}</TableCell>
-                  <TableCell className="text-right font-medium">${display.price.toFixed(2)}</TableCell>
+                  <TableCell className="text-right font-medium">${parseFloat(display.price).toFixed(2)}</TableCell>
                   <TableCell className="text-center">
                     <div className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
                         display.inStock ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'
@@ -132,20 +153,21 @@ export default function ManageDisplays() {
                           </div>
                           <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="price" className="text-right">Price</Label>
-                            <Input id="price" type="number" step="0.01" value={editForm.price || 0} onChange={(e) => setEditForm({...editForm, price: parseFloat(e.target.value)})} className="col-span-3" />
+                            <Input id="price" type="number" step="0.01" value={editForm.price || '0'} onChange={(e) => setEditForm({...editForm, price: e.target.value})} className="col-span-3" />
                           </div>
                           <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="type" className="text-right">Type</Label>
                             <Select 
                               value={editForm.type} 
-                              onValueChange={(value: "floor" | "wall") => setEditForm({...editForm, type: value})}
+                              onValueChange={(value) => setEditForm({...editForm, type: value})}
                             >
                               <SelectTrigger className="col-span-3">
                                 <SelectValue placeholder="Select type" />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="floor">Floor</SelectItem>
-                                <SelectItem value="wall">Wall</SelectItem>
+                                <SelectItem value="Floor Stand">Floor Stand</SelectItem>
+                                <SelectItem value="Wall Mount">Wall Mount</SelectItem>
+                                <SelectItem value="Counter">Counter</SelectItem>
                               </SelectContent>
                             </Select>
                           </div>

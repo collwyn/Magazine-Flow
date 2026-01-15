@@ -6,11 +6,11 @@ import { Link } from "wouter";
 import logo from "@assets/generated_images/minimalist_magazine_distribution_logo,_white_on_blue.png";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { useData } from "@/context/DataContext";
+import { useDisplays } from "@/hooks/useApi";
 
 export default function Displays() {
-  const { displays } = useData();
-  const [selectedType, setSelectedType] = useState<"all" | "floor" | "wall">("all");
+  const { data: displays = [], isLoading } = useDisplays();
+  const [selectedType, setSelectedType] = useState<"all" | "Floor Stand" | "Wall Mount">("all");
   
   const filteredDisplays = selectedType === "all" 
     ? displays
@@ -61,15 +61,15 @@ export default function Displays() {
                 All Fixtures
             </Button>
             <Button
-                variant={selectedType === "floor" ? "default" : "outline"}
-                onClick={() => setSelectedType("floor")}
+                variant={selectedType === "Floor Stand" ? "default" : "outline"}
+                onClick={() => setSelectedType("Floor Stand")}
                 className="rounded-full px-6"
             >
                 Floor Stands
             </Button>
             <Button
-                variant={selectedType === "wall" ? "default" : "outline"}
-                onClick={() => setSelectedType("wall")}
+                variant={selectedType === "Wall Mount" ? "default" : "outline"}
+                onClick={() => setSelectedType("Wall Mount")}
                 className="rounded-full px-6"
             >
                 Wall Mounted
@@ -97,7 +97,7 @@ export default function Displays() {
                     <CardContent className="p-6 space-y-4">
                         <div>
                             <h3 className="font-heading font-bold text-2xl leading-tight mb-1">{display.name}</h3>
-                            <p className="text-primary font-bold text-lg">${display.price.toFixed(2)}</p>
+                            <p className="text-primary font-bold text-lg">${parseFloat(display.price).toFixed(2)}</p>
                         </div>
                         <p className="text-muted-foreground text-sm leading-relaxed">{display.description}</p>
                         
