@@ -99,7 +99,11 @@ async function seed() {
   console.log("Inserting magazines...");
   await db.insert(magazines).values(magazineData).onConflictDoNothing();
 
-  // Seed displays
+  // Seed displays - using local generated images for magazine display racks
+  const floorImage = "/attached_assets/generated_images/modern_wooden_floor_magazine_display_stand.png";
+  const wallImage = "/attached_assets/generated_images/wall_mounted_metal_magazine_rack.png";
+  const counterImage = "/attached_assets/generated_images/modern_boutique_magazine_display_rack.png";
+
   const displayData = [
     {
       name: "Wall-Mount Magazine Rack",
@@ -108,7 +112,7 @@ async function seed() {
       price: "89.99",
       dimensions: '24"W x 36"H x 4"D',
       capacity: "12 magazines",
-      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop",
+      imageUrl: wallImage,
       description: "Sleek wall-mounted display perfect for retail spaces. Features 6 tiered pockets for maximum visibility.",
       inStock: true,
     },
@@ -119,7 +123,7 @@ async function seed() {
       price: "249.99",
       dimensions: '18"W x 60"H x 18"D',
       capacity: "24 magazines",
-      imageUrl: "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=600&h=400&fit=crop",
+      imageUrl: floorImage,
       description: "Four-sided rotating display with oak finish. Ideal for high-traffic areas.",
       inStock: true,
     },
@@ -130,7 +134,7 @@ async function seed() {
       price: "34.99",
       dimensions: '12"W x 14"H x 8"D',
       capacity: "6 magazines",
-      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop",
+      imageUrl: counterImage,
       description: "Clear acrylic display for checkout counters. Space-efficient and attractive.",
       inStock: true,
     },
@@ -141,7 +145,7 @@ async function seed() {
       price: "129.99",
       dimensions: '16"W x 48"H x 12"D',
       capacity: "15 magazines",
-      imageUrl: "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&h=400&fit=crop",
+      imageUrl: floorImage,
       description: "Eco-friendly bamboo display with modern minimalist design.",
       inStock: true,
     },
@@ -152,7 +156,7 @@ async function seed() {
       price: "59.99",
       dimensions: '24"W x 48"H x 2"D',
       capacity: "18 magazines",
-      imageUrl: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=600&h=400&fit=crop",
+      imageUrl: wallImage,
       description: "Versatile wire grid system with adjustable hooks. Easy to customize.",
       inStock: false,
     },
@@ -163,7 +167,7 @@ async function seed() {
       price: "189.99",
       dimensions: '14"W x 18"H x 10"D',
       capacity: "8 magazines",
-      imageUrl: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=400&fit=crop",
+      imageUrl: floorImage,
       description: "Luxury leather-wrapped display for upscale boutiques and cafes.",
       inStock: true,
     },
