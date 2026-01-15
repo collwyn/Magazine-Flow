@@ -8,6 +8,8 @@ import Dashboard from "@/pages/dashboard/Dashboard";
 import Inventory from "@/pages/inventory/Inventory";
 import Orders from "@/pages/orders/Orders";
 import Catalog from "@/pages/catalog/Catalog";
+import Retailers from "@/pages/retailers/Retailers";
+import Invoices from "@/pages/invoices/Invoices";
 import Login from "@/pages/auth/Login";
 import { AuthProvider } from "@/context/AuthContext";
 
@@ -28,6 +30,12 @@ function Router() {
       </Route>
       <Route path="/catalog">
         <DashboardLayout><Catalog /></DashboardLayout>
+      </Route>
+      <Route path="/retailers">
+        <DashboardLayout><Retailers /></DashboardLayout>
+      </Route>
+      <Route path="/invoices">
+        <DashboardLayout><Invoices /></DashboardLayout>
       </Route>
       
       <Route path="/">
