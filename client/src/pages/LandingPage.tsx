@@ -55,7 +55,7 @@ export default function LandingPage() {
                         <Button size="lg" className="h-14 px-8 text-lg shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90 transition-all hover:translate-y-[-2px]" onClick={() => setLocation("/dashboard")}>
                             Start Ordering <ArrowRight className="ml-2 h-5 w-5" />
                         </Button>
-                        <Button size="lg" variant="outline" className="h-14 px-8 text-lg border-2 hover:bg-secondary/50">
+                        <Button size="lg" variant="outline" className="h-14 px-8 text-lg border-2 hover:bg-secondary/50" onClick={() => setLocation("/browse-catalog")}>
                             <PlayCircle className="mr-2 h-5 w-5" /> Browse Catalog
                         </Button>
                     </div>
