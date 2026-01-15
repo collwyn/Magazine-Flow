@@ -6,6 +6,7 @@ import NotFound from "@/pages/not-found";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import Dashboard from "@/pages/dashboard/Dashboard";
 import Inventory from "@/pages/inventory/Inventory";
+import ManageDisplays from "@/pages/inventory/ManageDisplays";
 import Orders from "@/pages/orders/Orders";
 import Catalog from "@/pages/catalog/Catalog";
 import PublicCatalog from "@/pages/catalog/PublicCatalog";
@@ -15,6 +16,7 @@ import Invoices from "@/pages/invoices/Invoices";
 import Login from "@/pages/auth/Login";
 import LandingPage from "@/pages/LandingPage";
 import { AuthProvider } from "@/context/AuthContext";
+import { DataProvider } from "@/context/DataContext";
 
 function Router() {
   return (
@@ -30,6 +32,9 @@ function Router() {
       </Route>
       <Route path="/inventory">
         <DashboardLayout><Inventory /></DashboardLayout>
+      </Route>
+      <Route path="/inventory/displays">
+        <DashboardLayout><ManageDisplays /></DashboardLayout>
       </Route>
       <Route path="/orders">
         <DashboardLayout><Orders /></DashboardLayout>
@@ -53,8 +58,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <Toaster />
-        <Router />
+        <DataProvider>
+          <Toaster />
+          <Router />
+        </DataProvider>
       </AuthProvider>
     </QueryClientProvider>
   );

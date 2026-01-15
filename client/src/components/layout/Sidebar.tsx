@@ -14,6 +14,7 @@ export function Sidebar() {
     ? [
         { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
         { icon: Package, label: "Inventory", href: "/inventory" },
+        { icon: Store, label: "Displays", href: "/inventory/displays" },
         { icon: ShoppingCart, label: "All Orders", href: "/orders" },
         { icon: Users, label: "Retailers", href: "/retailers" },
         { icon: FileText, label: "Invoices", href: "/invoices" },

@@ -1,4 +1,3 @@
-import { mockMagazines } from "@/lib/mockData";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -7,15 +6,17 @@ import { Link } from "wouter";
 import logo from "@assets/generated_images/minimalist_magazine_distribution_logo,_white_on_blue.png";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useData } from "@/context/DataContext";
 
 export default function PublicCatalog() {
+  const { magazines } = useData();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   
-  const categories = Array.from(new Set(mockMagazines.map(m => m.category)));
+  const categories = Array.from(new Set(magazines.map(m => m.category)));
   
   const filteredMagazines = selectedCategory 
-    ? mockMagazines.filter(m => m.category === selectedCategory)
-    : mockMagazines;
+    ? magazines.filter(m => m.category === selectedCategory)
+    : magazines;
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">

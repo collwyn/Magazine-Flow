@@ -1,4 +1,3 @@
-import { mockMagazines } from "@/lib/mockData";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -13,14 +12,41 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Search, Filter, AlertTriangle } from "lucide-react";
 import { useState } from "react";
+import { useData } from "@/context/DataContext";
+import { Magazine } from "@/lib/mockData";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 
 export default function Inventory() {
+  const { magazines, updateMagazine } = useData();
   const [searchTerm, setSearchTerm] = useState("");
+  const [editingMagazine, setEditingMagazine] = useState<Magazine | null>(null);
+  const [editForm, setEditForm] = useState<Partial<Magazine>>({});
 
-  const filteredMagazines = mockMagazines.filter(mag => 
+  const filteredMagazines = magazines.filter(mag => 
     mag.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     mag.sku.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleEdit = (magazine: Magazine) => {
+    setEditingMagazine(magazine);
+    setEditForm(magazine);
+  };
+
+  const handleSave = () => {
+    if (editingMagazine && editForm) {
+      updateMagazine(editingMagazine.id, editForm);
+      setEditingMagazine(null);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -100,14 +126,40 @@ export default function Inventory() {
                     </div>
                   </TableCell>
                   <TableCell className="text-right">
-                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                      <span className="sr-only">Open menu</span>
-                      <div className="h-4 w-4 rotate-90 flex items-center justify-center gap-[2px]">
-                          <span className="w-1 h-1 rounded-full bg-muted-foreground" />
-                          <span className="w-1 h-1 rounded-full bg-muted-foreground" />
-                          <span className="w-1 h-1 rounded-full bg-muted-foreground" />
-                      </div>
-                    </Button>
+                    <Dialog open={editingMagazine?.id === mag.id} onOpenChange={(open) => !open && setEditingMagazine(null)}>
+                      <DialogTrigger asChild>
+                        <Button variant="ghost" size="sm" onClick={() => handleEdit(mag)}>Edit</Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                          <DialogTitle>Edit Magazine</DialogTitle>
+                          <DialogDescription>
+                            Make changes to the magazine details below.
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                          <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="title" className="text-right">Title</Label>
+                            <Input id="title" value={editForm.title || ''} onChange={(e) => setEditForm({...editForm, title: e.target.value})} className="col-span-3" />
+                          </div>
+                          <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="price" className="text-right">Price</Label>
+                            <Input id="price" type="number" step="0.01" value={editForm.price || 0} onChange={(e) => setEditForm({...editForm, price: parseFloat(e.target.value)})} className="col-span-3" />
+                          </div>
+                          <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="stock" className="text-right">Stock</Label>
+                            <Input id="stock" type="number" value={editForm.stock || 0} onChange={(e) => setEditForm({...editForm, stock: parseInt(e.target.value)})} className="col-span-3" />
+                          </div>
+                          <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="publisher" className="text-right">Publisher</Label>
+                            <Input id="publisher" value={editForm.publisher || ''} onChange={(e) => setEditForm({...editForm, publisher: e.target.value})} className="col-span-3" />
+                          </div>
+                        </div>
+                        <DialogFooter>
+                          <Button type="submit" onClick={handleSave}>Save changes</Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
                   </TableCell>
                 </TableRow>
               ))}

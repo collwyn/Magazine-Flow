@@ -1,4 +1,3 @@
-import { mockDisplays } from "@/lib/mockData";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -7,13 +6,15 @@ import { Link } from "wouter";
 import logo from "@assets/generated_images/minimalist_magazine_distribution_logo,_white_on_blue.png";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useData } from "@/context/DataContext";
 
 export default function Displays() {
+  const { displays } = useData();
   const [selectedType, setSelectedType] = useState<"all" | "floor" | "wall">("all");
   
   const filteredDisplays = selectedType === "all" 
-    ? mockDisplays
-    : mockDisplays.filter(d => d.type === selectedType);
+    ? displays
+    : displays.filter(d => d.type === selectedType);
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
