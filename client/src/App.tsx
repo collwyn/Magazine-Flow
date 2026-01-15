@@ -11,11 +11,13 @@ import Catalog from "@/pages/catalog/Catalog";
 import Retailers from "@/pages/retailers/Retailers";
 import Invoices from "@/pages/invoices/Invoices";
 import Login from "@/pages/auth/Login";
+import LandingPage from "@/pages/LandingPage";
 import { AuthProvider } from "@/context/AuthContext";
 
 function Router() {
   return (
     <Switch>
+      <Route path="/" component={LandingPage} />
       <Route path="/login" component={Login} />
       
       {/* Protected Routes Wrapper */}
@@ -38,10 +40,6 @@ function Router() {
         <DashboardLayout><Invoices /></DashboardLayout>
       </Route>
       
-      <Route path="/">
-        <DashboardLayout><Dashboard /></DashboardLayout>
-      </Route>
-
       <Route component={NotFound} />
     </Switch>
   );
