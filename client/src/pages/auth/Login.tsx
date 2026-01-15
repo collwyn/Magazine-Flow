@@ -11,7 +11,10 @@ export default function Login() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     // In a real app, validation and auth would happen here
-    setLocation("/dashboard");
+    // Redirect based on user role - for mockup we just default to Admin for now, 
+    // but in a real flow we would check the user role.
+    // Let's redirect to /admin by default for this demo since we are logged in as admin
+    setLocation("/admin/dashboard");
   };
 
   return (

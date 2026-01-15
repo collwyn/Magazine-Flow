@@ -12,12 +12,12 @@ export function Sidebar() {
 
   const menuItems = isAdmin 
     ? [
-        { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
-        { icon: Package, label: "Inventory", href: "/inventory" },
-        { icon: Store, label: "Displays", href: "/inventory/displays" },
-        { icon: ShoppingCart, label: "All Orders", href: "/orders" },
-        { icon: Users, label: "Retailers", href: "/retailers" },
-        { icon: FileText, label: "Invoices", href: "/invoices" },
+        { icon: LayoutDashboard, label: "Dashboard", href: "/admin/dashboard" },
+        { icon: Package, label: "Inventory", href: "/admin/inventory" },
+        { icon: Store, label: "Displays", href: "/admin/inventory/displays" },
+        { icon: ShoppingCart, label: "All Orders", href: "/admin/orders" },
+        { icon: Users, label: "Retailers", href: "/admin/retailers" },
+        { icon: FileText, label: "Invoices", href: "/admin/invoices" },
       ]
     : [
         { icon: LayoutDashboard, label: "My Dashboard", href: "/dashboard" },

@@ -26,24 +26,38 @@ function Router() {
       <Route path="/displays" component={Displays} />
       <Route path="/login" component={Login} />
       
-      {/* Protected Routes Wrapper */}
-      <Route path="/dashboard">
+      {/* Admin Routes */}
+      <Route path="/admin">
         <DashboardLayout><Dashboard /></DashboardLayout>
       </Route>
-      <Route path="/inventory">
+      <Route path="/admin/dashboard">
+        <DashboardLayout><Dashboard /></DashboardLayout>
+      </Route>
+      <Route path="/admin/inventory">
         <DashboardLayout><Inventory /></DashboardLayout>
       </Route>
-      <Route path="/inventory/displays">
+      <Route path="/admin/inventory/displays">
         <DashboardLayout><ManageDisplays /></DashboardLayout>
+      </Route>
+      <Route path="/admin/orders">
+        <DashboardLayout><Orders /></DashboardLayout>
+      </Route>
+      <Route path="/admin/retailers">
+        <DashboardLayout><Retailers /></DashboardLayout>
+      </Route>
+      <Route path="/admin/invoices">
+        <DashboardLayout><Invoices /></DashboardLayout>
+      </Route>
+
+      {/* Retailer Routes */}
+      <Route path="/dashboard">
+        <DashboardLayout><Dashboard /></DashboardLayout>
       </Route>
       <Route path="/orders">
         <DashboardLayout><Orders /></DashboardLayout>
       </Route>
       <Route path="/catalog">
         <DashboardLayout><Catalog /></DashboardLayout>
-      </Route>
-      <Route path="/retailers">
-        <DashboardLayout><Retailers /></DashboardLayout>
       </Route>
       <Route path="/invoices">
         <DashboardLayout><Invoices /></DashboardLayout>
