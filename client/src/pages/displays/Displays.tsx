@@ -46,7 +46,7 @@ export default function Displays() {
         <div className="mb-12 text-center space-y-4">
             <h1 className="text-4xl md:text-5xl font-heading font-bold">Store Fixtures</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Elevate your retail space with our premium magazine display solutions.
+                Need displays? Iconic has options. Whether it's to display a small quantity, or an entire wall rack, we can assist with design and installation.
             </p>
         </div>
 
