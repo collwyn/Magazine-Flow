@@ -4,7 +4,7 @@ import { magazines, displays, retailers } from "@shared/schema";
 async function seed() {
   console.log("Seeding database...");
 
-  // Seed magazines
+  // Seed magazines - using original mockData images
   const magazineData = [
     {
       title: "Vogue",
@@ -14,7 +14,7 @@ async function seed() {
       stock: 100,
       sku: "MAG-VOGUE-001",
       status: "active",
-      coverUrl: "https://images.unsplash.com/photo-1600431521340-491eca880813?w=400&h=600&fit=crop",
+      coverUrl: "https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&q=80&w=600",
       description: "The world's leading fashion magazine featuring haute couture, beauty, and lifestyle.",
     },
     {
@@ -25,7 +25,7 @@ async function seed() {
       stock: 75,
       sku: "MAG-NATGEO-001",
       status: "active",
-      coverUrl: "https://images.unsplash.com/photo-1569163139394-de4798aa62b6?w=400&h=600&fit=crop",
+      coverUrl: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&q=80&w=600",
       description: "Explore the world through stunning photography and groundbreaking science.",
     },
     {
@@ -36,7 +36,7 @@ async function seed() {
       stock: 90,
       sku: "MAG-WIRED-001",
       status: "active",
-      coverUrl: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=600&fit=crop",
+      coverUrl: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=600",
       description: "The definitive guide to technology, business, and innovation.",
     },
     {
@@ -47,7 +47,7 @@ async function seed() {
       stock: 60,
       sku: "MAG-NEWYORKER-001",
       status: "active",
-      coverUrl: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&h=600&fit=crop",
+      coverUrl: "https://images.unsplash.com/photo-1555449380-492987ebdb83?auto=format&fit=crop&q=80&w=600",
       description: "A weekly magazine featuring journalism, commentary, criticism, essays, fiction, and poetry.",
     },
     {
@@ -58,7 +58,7 @@ async function seed() {
       stock: 80,
       sku: "MAG-FORBES-001",
       status: "active",
-      coverUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=600&fit=crop",
+      coverUrl: "https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?auto=format&fit=crop&q=80&w=600",
       description: "Business news, financial insights, and profiles of the world's most successful entrepreneurs.",
     },
     {
@@ -69,7 +69,7 @@ async function seed() {
       stock: 95,
       sku: "MAG-TIME-001",
       status: "active",
-      coverUrl: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&h=600&fit=crop",
+      coverUrl: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=600",
       description: "Breaking news and analysis on politics, world events, and current affairs.",
     },
     {
@@ -80,7 +80,7 @@ async function seed() {
       stock: 70,
       sku: "MAG-BONAPPETIT-001",
       status: "active",
-      coverUrl: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=600&fit=crop",
+      coverUrl: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=600",
       description: "Recipes, cooking tips, and food culture from around the world.",
     },
     {
@@ -91,7 +91,7 @@ async function seed() {
       stock: 55,
       sku: "MAG-ARCHDIGEST-001",
       status: "active",
-      coverUrl: "https://images.unsplash.com/photo-1615873968403-89e068629265?w=400&h=600&fit=crop",
+      coverUrl: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=600",
       description: "Interior design, architecture, and luxury living inspiration.",
     },
   ];
