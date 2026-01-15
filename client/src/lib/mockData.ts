@@ -38,6 +38,19 @@ export interface Magazine {
   description?: string;
 }
 
+export interface DisplayProduct {
+  id: number;
+  name: string;
+  type: "floor" | "wall";
+  material: string;
+  price: number;
+  dimensions: string;
+  capacity: string;
+  imageUrl: string;
+  description: string;
+  inStock: boolean;
+}
+
 export interface Order {
   id: number;
   orderNumber: string;
@@ -114,7 +127,7 @@ export const mockMagazines: Magazine[] = [
   { id: 12, title: "GQ", publisher: "Condé Nast", category: "Men's Lifestyle", price: 8.99, stock: 300, sku: "GQ-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600", description: "Men's style and culture." },
   { id: 13, title: "Vanity Fair", publisher: "Condé Nast", category: "Culture", price: 9.99, stock: 250, sku: "VF-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=600", description: "Pop culture, fashion, and politics." },
   { id: 14, title: "Esquire", publisher: "Hearst", category: "Men's Lifestyle", price: 7.99, stock: 220, sku: "ESQ-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?auto=format&fit=crop&q=80&w=600", description: "Style, politics, and culture for men." },
-  { id: 15, title: "Elle", publisher: "Hearst", category: "Fashion", price: 8.99, stock: 350, sku: "ELLE-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=600", description: "Fashion, beauty, and lifestyle." },
+  { id: 15, title: "Elle", publisher: "Hearst", category: "Fashion", price: 8.99, stock: 350, sku: "ELLE-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1485230946086-1d99d50b286c?auto=format&fit=crop&q=80&w=600", description: "Fashion, beauty, and lifestyle." },
   { id: 16, title: "Harper's Bazaar", publisher: "Hearst", category: "Fashion", price: 9.99, stock: 180, sku: "HB-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=600", description: "Sophisticated fashion and style." },
   { id: 17, title: "Rolling Stone", publisher: "Penske", category: "Music", price: 9.99, stock: 400, sku: "RS-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?auto=format&fit=crop&q=80&w=600", description: "Music, pop culture, and politics." },
   { id: 18, title: "Billboard", publisher: "Penske", category: "Music", price: 10.99, stock: 150, sku: "BB-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&q=80&w=600", description: "Music industry news and charts." },
@@ -122,7 +135,7 @@ export const mockMagazines: Magazine[] = [
   { id: 20, title: "Bloomberg Businessweek", publisher: "Bloomberg", category: "Business", price: 9.99, stock: 180, sku: "BBW-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&q=80&w=600", description: "Global business and market news." },
   { id: 21, title: "The Economist", publisher: "The Economist Group", category: "Business", price: 14.99, stock: 300, sku: "ECO-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&q=80&w=600", description: "International news and business analysis." },
   { id: 22, title: "Scientific American", publisher: "Springer Nature", category: "Science", price: 10.99, stock: 100, sku: "SA-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=600", description: "Science news and research." },
-  { id: 23, title: "Popular Science", publisher: "Recurrent", category: "Science", price: 8.99, stock: 120, sku: "PS-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=600", description: "Science and technology news." },
+  { id: 23, title: "Popular Science", publisher: "Recurrent", category: "Science", price: 8.99, stock: 120, sku: "PS-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1581093458891-2f30890918b6?auto=format&fit=crop&q=80&w=600", description: "Science and technology news." },
   { id: 24, title: "Dwell", publisher: "Dwell Life", category: "Design", price: 14.99, stock: 80, sku: "DWL-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=600", description: "Modern architecture and design." },
   { id: 25, title: "Wallpaper*", publisher: "Future", category: "Design", price: 16.99, stock: 60, sku: "WPR-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=600", description: "Design, architecture, and lifestyle." },
   { id: 26, title: "Bon Appétit", publisher: "Condé Nast", category: "Food", price: 8.99, stock: 250, sku: "BA-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=600", description: "Food, recipes, and restaurant reviews." },
@@ -130,7 +143,7 @@ export const mockMagazines: Magazine[] = [
   { id: 28, title: "Travel + Leisure", publisher: "Dotdash Meredith", category: "Travel", price: 9.99, stock: 180, sku: "TL-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=600", description: "Travel guides and tips." },
   { id: 29, title: "Condé Nast Traveler", publisher: "Condé Nast", category: "Travel", price: 10.99, stock: 150, sku: "CNT-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=80&w=600", description: "Luxury travel and lifestyle." },
   { id: 30, title: "Sports Illustrated", publisher: "Minute Media", category: "Sports", price: 8.99, stock: 300, sku: "SI-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&q=80&w=600", description: "Sports news and analysis." },
-  { id: 31, title: "ESPN The Magazine", publisher: "Hearst", category: "Sports", price: 7.99, stock: 200, sku: "ESPN-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&q=80&w=600", description: "Sports coverage and commentary." },
+  { id: 31, title: "ESPN The Magazine", publisher: "Hearst", category: "Sports", price: 7.99, stock: 200, sku: "ESPN-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1587329310686-94757394aa60?auto=format&fit=crop&q=80&w=600", description: "Sports coverage and commentary." },
   { id: 32, title: "Runners World", publisher: "Hearst", category: "Sports", price: 8.99, stock: 150, sku: "RW-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?auto=format&fit=crop&q=80&w=600", description: "Running tips and gear reviews." },
   { id: 33, title: "Golf Digest", publisher: "Warner Bros. Discovery", category: "Sports", price: 9.99, stock: 120, sku: "GD-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&q=80&w=600", description: "Golf instruction and news." },
   { id: 34, title: "Car and Driver", publisher: "Hearst", category: "Automotive", price: 7.99, stock: 180, sku: "CD-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=600", description: "Automotive reviews and news." },
@@ -138,8 +151,86 @@ export const mockMagazines: Magazine[] = [
   { id: 36, title: "PC Gamer", publisher: "Future", category: "Gaming", price: 11.99, stock: 200, sku: "PCG-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&q=80&w=600", description: "PC gaming news and reviews." },
   { id: 37, title: "Game Informer", publisher: "GameStop", category: "Gaming", price: 8.99, stock: 250, sku: "GI-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?auto=format&fit=crop&q=80&w=600", description: "Video game news and reviews." },
   { id: 38, title: "Edge", publisher: "Future", category: "Gaming", price: 14.99, stock: 80, sku: "EDG-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=600", description: "Video game culture and industry." },
-  { id: 39, title: "Variety", publisher: "Penske", category: "Entertainment", price: 12.99, stock: 100, sku: "VAR-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=600", description: "Entertainment industry news." },
+  { id: 39, title: "Variety", publisher: "Penske", category: "Entertainment", price: 12.99, stock: 100, sku: "VAR-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1478720568477-152d9b164e63?auto=format&fit=crop&q=80&w=600", description: "Entertainment industry news." },
   { id: 40, title: "The Hollywood Reporter", publisher: "Penske", category: "Entertainment", price: 12.99, stock: 90, sku: "THR-2024-05", status: "active", coverUrl: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?auto=format&fit=crop&q=80&w=600", description: "Film and TV industry news." },
+];
+
+import floorImage from "@assets/generated_images/modern_wooden_floor_magazine_display_stand.png";
+import wallImage from "@assets/generated_images/wall_mounted_metal_magazine_rack.png";
+
+export const mockDisplays: DisplayProduct[] = [
+  {
+    id: 1,
+    name: "Oak Tiered Floor Stand",
+    type: "floor",
+    material: "Solid Oak Wood",
+    price: 249.99,
+    dimensions: '60"H x 24"W x 18"D',
+    capacity: "24 Magazine Facings",
+    imageUrl: floorImage,
+    description: "Elegant freestanding wooden display rack with a warm oak finish. Perfect for boutique spaces.",
+    inStock: true
+  },
+  {
+    id: 2,
+    name: "Industrial Metal Wall Grid",
+    type: "wall",
+    material: "Powder-Coated Steel",
+    price: 89.99,
+    dimensions: '48"H x 36"W x 2"D',
+    capacity: "12 Magazine Facings",
+    imageUrl: wallImage,
+    description: "Minimalist black metal wall-mounted rack. Space-saving industrial design.",
+    inStock: true
+  },
+  {
+    id: 3,
+    name: "Maple Free-standing Rack",
+    type: "floor",
+    material: "Maple Wood",
+    price: 279.99,
+    dimensions: '58"H x 28"W x 20"D',
+    capacity: "30 Magazine Facings",
+    imageUrl: floorImage, // Reusing floor image
+    description: "Light maple finish floor stand with angled shelves for optimal visibility.",
+    inStock: true
+  },
+  {
+    id: 4,
+    name: "Vertical Wall Pocket",
+    type: "wall",
+    material: "Brushed Aluminum",
+    price: 129.99,
+    dimensions: '36"H x 12"W x 4"D',
+    capacity: "5 Magazine Pockets",
+    imageUrl: wallImage, // Reusing wall image
+    description: "Sleek vertical wall mount for high-traffic areas and tight spaces.",
+    inStock: false
+  },
+  {
+    id: 5,
+    name: "Boutique A-Frame",
+    type: "floor",
+    material: "Pine & White Laminate",
+    price: 199.99,
+    dimensions: '50"H x 30"W x 24"D',
+    capacity: "16 Magazine Facings",
+    imageUrl: floorImage, // Reusing floor image
+    description: "Contemporary A-frame design that folds flat for storage. Modern aesthetic.",
+    inStock: true
+  },
+  {
+    id: 6,
+    name: "Gallery Wall Rail",
+    type: "wall",
+    material: "Matte Black Steel",
+    price: 59.99,
+    dimensions: '4"H x 48"W x 3"D',
+    capacity: "4 Magazine Facings",
+    imageUrl: wallImage, // Reusing wall image
+    description: "Single-tier floating ledge for showcasing featured issues like art.",
+    inStock: true
+  }
 ];
 
 export const mockOrders: Order[] = [

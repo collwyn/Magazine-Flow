@@ -31,7 +31,13 @@ export default function PublicCatalog() {
               </div>
             </Link>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
+            <Link href="/browse-catalog" className="text-sm font-medium text-primary transition-colors">
+                Magazines
+            </Link>
+            <Link href="/displays" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+                Displays
+            </Link>
             <Link href="/login">
                 <Button>Retailer Login</Button>
             </Link>
