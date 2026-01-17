@@ -2,11 +2,15 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertMagazineSchema, insertDisplaySchema, insertRetailerSchema } from "@shared/schema";
+import { autoSeedIfEmpty } from "./autoSeed";
 
 export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
+  
+  // Auto-seed the database if empty (works in both dev and production)
+  await autoSeedIfEmpty();
   
   // Magazines API
   app.get("/api/magazines", async (req, res) => {
