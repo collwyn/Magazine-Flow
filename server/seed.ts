@@ -51,10 +51,10 @@ async function seed() {
   console.log("Inserting magazines...");
   await db.insert(magazines).values(magazineData).onConflictDoNothing();
 
-  // Display images - using interior/furniture display images from Unsplash
-  const floorImage = "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=600";
-  const wallImage = "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=600";
-  const counterImage = "https://images.unsplash.com/photo-1524578271613-d550eacf6090?auto=format&fit=crop&q=80&w=600";
+  // Display images - using locally generated magazine display rack images
+  const floorImage = "/attached_assets/generated_images/modern_wooden_floor_magazine_display_stand.png";
+  const wallImage = "/attached_assets/generated_images/wall_mounted_metal_magazine_rack.png";
+  const counterImage = "/attached_assets/generated_images/modern_boutique_magazine_display_rack.png";
 
   const displayData = [
     {
