@@ -51,10 +51,10 @@ async function seed() {
   console.log("Inserting magazines...");
   await db.insert(magazines).values(magazineData).onConflictDoNothing();
 
-  // Display images - using locally generated magazine display rack images
-  const floorImage = "/attached_assets/generated_images/modern_wooden_floor_magazine_display_stand.png";
-  const wallImage = "/attached_assets/generated_images/wall_mounted_metal_magazine_rack.png";
-  const counterImage = "/attached_assets/generated_images/modern_boutique_magazine_display_rack.png";
+  // Display images - served from public folder for production compatibility
+  const floorImage = "/images/modern_wooden_floor_magazine_display_stand.png";
+  const wallImage = "/images/wall_mounted_metal_magazine_rack.png";
+  const counterImage = "/images/modern_boutique_magazine_display_rack.png";
 
   const displayData = [
     {
