@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, ShoppingCart, Users, Package, FileText, Settings, LogOut, BookOpen, Store } from "lucide-react";
+import { LayoutDashboard, ShoppingCart, Users, Package, FileText, Settings, LogOut, BookOpen } from "lucide-react";
 import logo from "@assets/generated_images/minimalist_magazine_distribution_logo,_white_on_blue.png";
 import { useAuth } from "@/context/AuthContext";
 
@@ -14,7 +14,6 @@ export function Sidebar() {
     ? [
         { icon: LayoutDashboard, label: "Dashboard", href: "/admin/dashboard" },
         { icon: Package, label: "Inventory", href: "/admin/inventory" },
-        { icon: Store, label: "Displays", href: "/admin/inventory/displays" },
         { icon: ShoppingCart, label: "All Orders", href: "/admin/orders" },
         { icon: Users, label: "Retailers", href: "/admin/retailers" },
         { icon: FileText, label: "Invoices", href: "/admin/invoices" },
@@ -22,7 +21,6 @@ export function Sidebar() {
     : [
         { icon: LayoutDashboard, label: "My Dashboard", href: "/dashboard" },
         { icon: BookOpen, label: "Catalog", href: "/catalog" },
-        { icon: Store, label: "Displays", href: "/displays" },
         { icon: ShoppingCart, label: "My Orders", href: "/orders" },
         { icon: FileText, label: "My Invoices", href: "/invoices" },
       ];

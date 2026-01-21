@@ -23,7 +23,6 @@ function Router() {
     <Switch>
       <Route path="/" component={LandingPage} />
       <Route path="/browse-catalog" component={PublicCatalog} />
-      <Route path="/displays" component={Displays} />
       <Route path="/login" component={Login} />
       
       {/* Admin Routes */}
