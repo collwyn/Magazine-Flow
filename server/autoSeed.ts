@@ -1,12 +1,21 @@
 import { db } from "./db";
+import { eq } from "drizzle-orm";
 import { magazines, displays, retailers } from "@shared/schema";
 
 export async function autoSeedIfEmpty() {
   try {
     const existingMagazines = await db.select().from(magazines).limit(1);
     
-    if (existingMagazines.length === 0) {
-      console.log("Database is empty, auto-seeding...");
+    const needsReseed = existingMagazines.length === 0 || 
+      (existingMagazines.length > 0 && existingMagazines[0].coverUrl?.startsWith("https://"));
+
+    if (needsReseed) {
+      if (existingMagazines.length > 0) {
+        console.log("Replacing old catalog data with new titles...");
+        await db.delete(magazines);
+      } else {
+        console.log("Database is empty, auto-seeding...");
+      }
       
       const magazineData = [
         { title: "British Vogue", publisher: "Condé Nast", category: "Fashion", price: "12.99", stock: 450, sku: "BV-2024-11", status: "active", coverUrl: "/images/covers/vogue.jpg", description: "The UK edition of the world's most influential fashion magazine, featuring the latest in style, beauty, and culture." },
