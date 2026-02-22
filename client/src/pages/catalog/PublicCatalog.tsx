@@ -44,9 +44,9 @@ export default function PublicCatalog() {
 
       <main className="max-w-7xl mx-auto px-6 py-12">
         <div className="mb-12 text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-heading font-bold">Our Collection</h1>
+            <h1 className="text-4xl md:text-5xl font-heading font-bold">Our Catalog</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Discover our curated selection of premium magazines available for wholesale distribution.
+                Browse through our selection of mainstream and indie magazines available for wholesale purchase. (Note: Images shown do not reflect the title's current issue)
             </p>
         </div>
 
