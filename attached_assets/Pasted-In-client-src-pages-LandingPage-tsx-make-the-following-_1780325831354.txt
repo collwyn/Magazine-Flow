@@ -1,0 +1,27 @@
+In client/src/pages/LandingPage.tsx, make the following changes:
+
+1. Remove the "Retailer Portal" Button from the top navigation bar (the one with onClick={() => setLocation("/login")}). Also remove the "Retailer Login" button if present anywhere on the page.
+
+2. Find the hero section's primary call-to-action button (the one that currently says "Start Ordering" or similar and navigates to "/dashboard"). Change its label to "Get Started" and change its onClick to navigate to "/apply" instead.
+
+3. Find and remove any section or block that mentions "100% Return Policy" or "Flexible Returns" — this includes the icon, heading, and description text for that feature block.
+
+4. Find the text that says "Join 500+ independent retailers" (or similar) and change it to "Join the NYC independent retailers..."
+
+5. Add a new section below the hero section (before the features/how-it-works section) with the following structure:
+   - A heading: "Featured Titles"
+   - A subheading: "A curated selection from our catalog"
+   - A horizontal row of 5 magazine cards, each card containing:
+     - A tall rectangular placeholder image area (aspect ratio roughly 2:3, like a magazine cover) using a solid light gray background with the magazine title initials centered in it
+     - The magazine title below in bold
+     - A category badge/tag above or overlaid on the image
+   - The 5 titles to include are:
+       1. Title: "British Vogue", Category: "Fashion"
+       2. Title: "Rolling Stone", Category: "Music"  
+       3. Title: "Interview", Category: "Culture"
+       4. Title: "Complex", Category: "Culture"
+       5. Title: "Cosmopolitan", Category: "Lifestyle"
+   - Below the row of cards, a centered link that says "View Entire Catalog →" and navigates to "/browse-catalog"
+   - Style the section to match the existing page aesthetic using Tailwind classes consistent with the rest of the page.
+
+Do not change the navigation links for "Catalog", "How it Works", or "Pricing". Do not modify any other sections.
