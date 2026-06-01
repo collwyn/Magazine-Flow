@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, PlayCircle, BookOpen, Truck } from "lucide-react";
 import { useLocation } from "wouter";
 import logo from "@assets/generated_images/minimalist_magazine_distribution_logo,_white_on_blue.png";
 import heroImage from "@assets/generated_images/modern_boutique_magazine_display_rack.png";
+import { ContactDialog } from "@/components/ContactDialog";
 
 const featuredTitles = [
   { title: "British Vogue", category: "Fashion", cover: "/images/covers/vogue.jpg" },
@@ -15,6 +17,7 @@ const featuredTitles = [
 
 export default function LandingPage() {
   const [, setLocation] = useLocation();
+  const [contactOpen, setContactOpen] = useState(false);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +40,7 @@ export default function LandingPage() {
             <a href="#pricing" className="hover:text-primary transition-colors">Pricing</a>
         </div>
         <div className="flex items-center gap-4">
-            <a href="#" className="text-sm font-medium hover:text-primary hidden sm:block">Support</a>
+            <button onClick={() => setContactOpen(true)} className="text-sm font-medium hover:text-primary hidden sm:block" data-testid="button-nav-contact">Contact</button>
             <Button className="hidden sm:flex" onClick={() => setLocation("/apply")} data-testid="button-nav-apply">Apply Now</Button>
         </div>
       </nav>
@@ -226,6 +229,8 @@ export default function LandingPage() {
             </div>
         </footer>
       </main>
+
+      <ContactDialog open={contactOpen} onOpenChange={setContactOpen} />
     </div>
   );
 }

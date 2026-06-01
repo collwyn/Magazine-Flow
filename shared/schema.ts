@@ -157,6 +157,16 @@ export const retailerApplications = pgTable("retailer_applications", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+export const contactMessages = pgTable("contact_messages", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name").notNull(),
+  email: text("email").notNull(),
+  question: text("question").notNull(),
+  read: boolean("read").notNull().default(false),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // Insert Schemas
 export const insertUserSchema = createInsertSchema(users, {
   username: z.string().min(3),
@@ -206,6 +216,14 @@ export const insertRetailerApplicationSchema = createInsertSchema(retailerApplic
   createdAt: true,
 });
 
+export const insertContactMessageSchema = createInsertSchema(contactMessages, {
+  email: z.string().email(),
+}).omit({
+  id: true,
+  createdAt: true,
+  read: true,
+});
+
 // Types
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
@@ -227,3 +245,6 @@ export type OrderItem = typeof orderItems.$inferSelect;
 
 export type InsertRetailerApplication = z.infer<typeof insertRetailerApplicationSchema>;
 export type RetailerApplication = typeof retailerApplications.$inferSelect;
+
+export type InsertContactMessage = z.infer<typeof insertContactMessageSchema>;
+export type ContactMessage = typeof contactMessages.$inferSelect;

@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, ShoppingCart, Users, Package, FileText, Settings, LogOut, BookOpen, ClipboardList } from "lucide-react";
+import { LayoutDashboard, ShoppingCart, Users, Package, FileText, Settings, LogOut, BookOpen, ClipboardList, MessageSquare } from "lucide-react";
 import logo from "@assets/generated_images/minimalist_magazine_distribution_logo,_white_on_blue.png";
 import { useAuth } from "@/context/AuthContext";
 
@@ -17,6 +17,7 @@ export function Sidebar() {
         { icon: ShoppingCart, label: "All Orders", href: "/admin/orders" },
         { icon: Users, label: "Retailers", href: "/admin/retailers" },
         { icon: ClipboardList, label: "Applications", href: "/admin/applications" },
+        { icon: MessageSquare, label: "Messages", href: "/admin/messages" },
         { icon: FileText, label: "Invoices", href: "/admin/invoices" },
       ]
     : [

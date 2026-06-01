@@ -6,7 +6,8 @@ import {
   type Order, type InsertOrder,
   type OrderItem, type InsertOrderItem,
   type RetailerApplication, type InsertRetailerApplication,
-  users, retailers, magazines, displays, orders, orderItems, retailerApplications
+  type ContactMessage, type InsertContactMessage,
+  users, retailers, magazines, displays, orders, orderItems, retailerApplications, contactMessages
 } from "@shared/schema";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
@@ -51,6 +52,11 @@ export interface IStorage {
   getRetailerApplication(id: number): Promise<RetailerApplication | undefined>;
   createRetailerApplication(data: InsertRetailerApplication): Promise<RetailerApplication>;
   updateRetailerApplication(id: number, data: Partial<Pick<RetailerApplication, "status" | "adminNotes">>): Promise<RetailerApplication | undefined>;
+
+  // Contact Messages
+  getContactMessages(): Promise<ContactMessage[]>;
+  createContactMessage(data: InsertContactMessage): Promise<ContactMessage>;
+  markContactMessageRead(id: number): Promise<ContactMessage | undefined>;
 }
 
 export class PostgresStorage implements IStorage {
@@ -181,6 +187,21 @@ export class PostgresStorage implements IStorage {
 
   async updateRetailerApplication(id: number, data: Partial<Pick<RetailerApplication, "status" | "adminNotes">>): Promise<RetailerApplication | undefined> {
     const result = await db.update(retailerApplications).set(data).where(eq(retailerApplications.id, id)).returning();
+    return result[0];
+  }
+
+  // Contact Messages
+  async getContactMessages(): Promise<ContactMessage[]> {
+    return db.select().from(contactMessages).orderBy(contactMessages.createdAt);
+  }
+
+  async createContactMessage(data: InsertContactMessage): Promise<ContactMessage> {
+    const result = await db.insert(contactMessages).values(data).returning();
+    return result[0];
+  }
+
+  async markContactMessageRead(id: number): Promise<ContactMessage | undefined> {
+    const result = await db.update(contactMessages).set({ read: true }).where(eq(contactMessages.id, id)).returning();
     return result[0];
   }
 }

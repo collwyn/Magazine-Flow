@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertMagazineSchema, insertDisplaySchema, insertRetailerSchema, insertRetailerApplicationSchema } from "@shared/schema";
+import { insertMagazineSchema, insertDisplaySchema, insertRetailerSchema, insertRetailerApplicationSchema, insertContactMessageSchema } from "@shared/schema";
 import { autoSeedIfEmpty } from "./autoSeed";
 
 export async function registerRoutes(
@@ -175,6 +175,45 @@ export async function registerRoutes(
       res.json({ ...order, items });
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch order" });
+    }
+  });
+
+  // Contact API
+  app.post("/api/contact", async (req, res) => {
+    try {
+      const parsed = insertContactMessageSchema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ error: "Invalid data", details: parsed.error.flatten() });
+      }
+      const message = await storage.createContactMessage(parsed.data);
+      // Fire-and-forget email notification — import inline to avoid top-level await issues
+      import("./email").then(({ sendContactNotification }) =>
+        sendContactNotification(parsed.data).catch(e => console.error("[email]", e))
+      );
+      res.status(201).json(message);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to save message" });
+    }
+  });
+
+  app.get("/api/contact", async (req, res) => {
+    if (req.query.adminKey !== "iconic-admin") return res.status(401).json({ error: "Unauthorized" });
+    try {
+      const messages = await storage.getContactMessages();
+      res.json(messages);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch messages" });
+    }
+  });
+
+  app.patch("/api/contact/:id/read", async (req, res) => {
+    if (req.query.adminKey !== "iconic-admin") return res.status(401).json({ error: "Unauthorized" });
+    try {
+      const updated = await storage.markContactMessageRead(parseInt(req.params.id));
+      if (!updated) return res.status(404).json({ error: "Not found" });
+      res.json(updated);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to update" });
     }
   });
 
