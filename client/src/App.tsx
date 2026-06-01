@@ -12,6 +12,7 @@ import Catalog from "@/pages/catalog/Catalog";
 import PublicCatalog from "@/pages/catalog/PublicCatalog";
 import Displays from "@/pages/displays/Displays";
 import Retailers from "@/pages/retailers/Retailers";
+import Applications from "@/pages/admin/Applications";
 import Invoices from "@/pages/invoices/Invoices";
 import Login from "@/pages/auth/Login";
 import LandingPage from "@/pages/LandingPage";
@@ -47,6 +48,9 @@ function Router() {
       </Route>
       <Route path="/admin/retailers">
         <DashboardLayout><Retailers /></DashboardLayout>
+      </Route>
+      <Route path="/admin/applications">
+        <DashboardLayout><Applications /></DashboardLayout>
       </Route>
       <Route path="/admin/invoices">
         <DashboardLayout><Invoices /></DashboardLayout>
