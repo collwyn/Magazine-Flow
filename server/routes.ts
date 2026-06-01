@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertMagazineSchema, insertDisplaySchema, insertRetailerSchema } from "@shared/schema";
+import { insertMagazineSchema, insertDisplaySchema, insertRetailerSchema, insertRetailerApplicationSchema } from "@shared/schema";
 import { autoSeedIfEmpty } from "./autoSeed";
 
 export async function registerRoutes(
@@ -175,6 +175,67 @@ export async function registerRoutes(
       res.json({ ...order, items });
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch order" });
+    }
+  });
+
+  // Retailer Applications API
+  const ADMIN_KEY = "iconic-admin";
+
+  app.post("/api/applications", async (req, res) => {
+    try {
+      const parsed = insertRetailerApplicationSchema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ error: "Invalid application data", details: parsed.error.flatten() });
+      }
+      const application = await storage.createRetailerApplication(parsed.data);
+      res.status(201).json(application);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to submit application" });
+    }
+  });
+
+  app.get("/api/applications", async (req, res) => {
+    if (req.query.adminKey !== ADMIN_KEY) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    try {
+      const applications = await storage.getRetailerApplications();
+      res.json(applications);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch applications" });
+    }
+  });
+
+  app.get("/api/applications/:id", async (req, res) => {
+    if (req.query.adminKey !== ADMIN_KEY) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    try {
+      const id = parseInt(req.params.id);
+      const application = await storage.getRetailerApplication(id);
+      if (!application) {
+        return res.status(404).json({ error: "Application not found" });
+      }
+      res.json(application);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch application" });
+    }
+  });
+
+  app.patch("/api/applications/:id", async (req, res) => {
+    if (req.query.adminKey !== ADMIN_KEY) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    try {
+      const id = parseInt(req.params.id);
+      const { status, adminNotes } = req.body;
+      const updated = await storage.updateRetailerApplication(id, { status, adminNotes });
+      if (!updated) {
+        return res.status(404).json({ error: "Application not found" });
+      }
+      res.json(updated);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to update application" });
     }
   });
 

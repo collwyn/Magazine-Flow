@@ -5,7 +5,8 @@ import {
   type Display, type InsertDisplay,
   type Order, type InsertOrder,
   type OrderItem, type InsertOrderItem,
-  users, retailers, magazines, displays, orders, orderItems
+  type RetailerApplication, type InsertRetailerApplication,
+  users, retailers, magazines, displays, orders, orderItems, retailerApplications
 } from "@shared/schema";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
@@ -44,6 +45,12 @@ export interface IStorage {
   // Order Items
   getOrderItems(orderId: number): Promise<OrderItem[]>;
   createOrderItem(item: InsertOrderItem): Promise<OrderItem>;
+
+  // Retailer Applications
+  getRetailerApplications(): Promise<RetailerApplication[]>;
+  getRetailerApplication(id: number): Promise<RetailerApplication | undefined>;
+  createRetailerApplication(data: InsertRetailerApplication): Promise<RetailerApplication>;
+  updateRetailerApplication(id: number, data: Partial<Pick<RetailerApplication, "status" | "adminNotes">>): Promise<RetailerApplication | undefined>;
 }
 
 export class PostgresStorage implements IStorage {
@@ -154,6 +161,26 @@ export class PostgresStorage implements IStorage {
 
   async createOrderItem(item: InsertOrderItem): Promise<OrderItem> {
     const result = await db.insert(orderItems).values(item).returning();
+    return result[0];
+  }
+
+  // Retailer Applications
+  async getRetailerApplications(): Promise<RetailerApplication[]> {
+    return db.select().from(retailerApplications);
+  }
+
+  async getRetailerApplication(id: number): Promise<RetailerApplication | undefined> {
+    const result = await db.select().from(retailerApplications).where(eq(retailerApplications.id, id));
+    return result[0];
+  }
+
+  async createRetailerApplication(data: InsertRetailerApplication): Promise<RetailerApplication> {
+    const result = await db.insert(retailerApplications).values(data).returning();
+    return result[0];
+  }
+
+  async updateRetailerApplication(id: number, data: Partial<Pick<RetailerApplication, "status" | "adminNotes">>): Promise<RetailerApplication | undefined> {
+    const result = await db.update(retailerApplications).set(data).where(eq(retailerApplications.id, id)).returning();
     return result[0];
   }
 }
