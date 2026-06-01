@@ -1,9 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { CheckCircle, ArrowRight, PlayCircle, BookOpen, Truck, RefreshCw, ShieldCheck } from "lucide-react";
+import { ArrowRight, PlayCircle, BookOpen, Truck } from "lucide-react";
 import { useLocation } from "wouter";
 import logo from "@assets/generated_images/minimalist_magazine_distribution_logo,_white_on_blue.png";
 import heroImage from "@assets/generated_images/modern_boutique_magazine_display_rack.png";
+
+const featuredTitles = [
+  { title: "British Vogue", category: "Fashion", initials: "BV" },
+  { title: "Rolling Stone", category: "Music", initials: "RS" },
+  { title: "Interview", category: "Culture", initials: "IN" },
+  { title: "Complex", category: "Culture", initials: "CX" },
+  { title: "Cosmopolitan", category: "Lifestyle", initials: "CO" },
+];
 
 export default function LandingPage() {
   const [, setLocation] = useLocation();
@@ -30,7 +38,6 @@ export default function LandingPage() {
         </div>
         <div className="flex items-center gap-4">
             <a href="#" className="text-sm font-medium hover:text-primary hidden sm:block">Support</a>
-            <Button variant="outline" className="hidden sm:flex" onClick={() => setLocation("/login")}>Retailer Portal</Button>
         </div>
       </nav>
 
@@ -52,16 +59,15 @@ export default function LandingPage() {
                     </p>
                     
                     <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                        <Button size="lg" className="h-14 px-8 text-lg shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90 transition-all hover:translate-y-[-2px]" onClick={() => setLocation("/dashboard")}>
-                            Start Ordering <ArrowRight className="ml-2 h-5 w-5" />
+                        <Button size="lg" className="h-14 px-8 text-lg shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90 transition-all hover:translate-y-[-2px]" onClick={() => setLocation("/apply")} data-testid="button-get-started">
+                            Get Started <ArrowRight className="ml-2 h-5 w-5" />
                         </Button>
-                        <Button size="lg" variant="outline" className="h-14 px-8 text-lg border-2 hover:bg-secondary/50" onClick={() => setLocation("/browse-catalog")}>
+                        <Button size="lg" variant="outline" className="h-14 px-8 text-lg border-2 hover:bg-secondary/50" onClick={() => setLocation("/browse-catalog")} data-testid="button-browse-catalog">
                             <PlayCircle className="mr-2 h-5 w-5" /> Browse Catalog
                         </Button>
                     </div>
 
                     <div className="pt-8 flex items-center gap-8 text-muted-foreground grayscale opacity-70">
-                        <div className="flex items-center gap-2 text-sm font-bold"><ShieldCheck className="h-5 w-5" /> 100% Return Policy</div>
                         <div className="flex items-center gap-2 text-sm font-bold"><Truck className="h-5 w-5" /> Free Shipping over $200</div>
                     </div>
                 </div>
@@ -102,7 +108,7 @@ export default function LandingPage() {
                                         Sign In
                                     </Button>
                                     <div className="text-center text-xs text-muted-foreground mt-4">
-                                        <a href="#" className="hover:text-primary transition-colors">Apply for a wholesale account</a>
+                                        <a href="/apply" className="hover:text-primary transition-colors">Apply for a wholesale account</a>
                                     </div>
                                 </form>
                             </div>
@@ -116,14 +122,43 @@ export default function LandingPage() {
             </div>
         </section>
 
+        {/* Featured Titles */}
+        <section className="py-16 px-6">
+            <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-10">
+                    <h2 className="text-3xl md:text-4xl font-heading font-bold mb-2">Featured Titles</h2>
+                    <p className="text-muted-foreground text-lg">A curated selection from our catalog</p>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                    {featuredTitles.map((mag) => (
+                        <div key={mag.title} className="flex flex-col gap-2" data-testid={`card-featured-${mag.title.toLowerCase().replace(/\s+/g, "-")}`}>
+                            <div className="relative rounded-xl overflow-hidden bg-slate-100 aspect-[2/3] flex items-center justify-center">
+                                <span className="text-3xl font-heading font-bold text-slate-300">{mag.initials}</span>
+                                <div className="absolute top-2 left-2">
+                                    <span className="px-2 py-0.5 rounded-full bg-white/90 text-xs font-semibold text-slate-600 shadow-sm">
+                                        {mag.category}
+                                    </span>
+                                </div>
+                            </div>
+                            <p className="font-semibold text-sm text-center leading-tight">{mag.title}</p>
+                        </div>
+                    ))}
+                </div>
+                <div className="text-center mt-8">
+                    <a href="/browse-catalog" className="inline-flex items-center gap-1 text-primary font-semibold text-sm hover:underline transition-all" data-testid="link-view-catalog">
+                        View Entire Catalog <ArrowRight className="w-4 h-4" />
+                    </a>
+                </div>
+            </div>
+        </section>
+
         {/* Features Strip */}
         <section className="bg-slate-50 border-y border-slate-100 py-16">
             <div className="max-w-7xl mx-auto px-6">
-                <div className="grid md:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-2 gap-8">
                     {[
-                        { title: "Curated Catalog", desc: "Browse thousands of top-tier titles across every niche category.", icon: BookOpen },
-                        { title: "Next-Day Delivery", desc: "Order by 5PM and get your stock refreshed the very next morning.", icon: Truck },
-                        { title: "Flexible Returns", desc: "Unsold copies? No problem. Return them for full credit on your next order.", icon: RefreshCw }
+                        { title: "Curated Catalog", desc: "Browse top-tier titles across fashion, culture, music, and more.", icon: BookOpen },
+                        { title: "NYC Delivery", desc: "Order by 5PM and get your stock delivered to all 5 boroughs.", icon: Truck },
                     ].map((feature, i) => (
                         <div key={i} className="flex gap-4 items-start p-4 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-300">
                             <div className="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
@@ -143,9 +178,9 @@ export default function LandingPage() {
         <section className="py-24 px-6">
             <div className="max-w-5xl mx-auto text-center space-y-8">
                 <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground">Fill your shelves with culture.</h2>
-                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Join 500+ independent retailers who trust ICONIC for their magazine inventory.</p>
+                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Join the NYC independent retailers who trust ICONIC for their magazine inventory.</p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                    <Button size="lg" className="h-12 px-8">Open Retail Account</Button>
+                    <Button size="lg" className="h-12 px-8" onClick={() => setLocation("/apply")}>Open Retail Account</Button>
                     <Button size="lg" variant="outline" className="h-12 px-8">View Wholesale Pricing</Button>
                 </div>
             </div>
@@ -166,10 +201,9 @@ export default function LandingPage() {
                 <div>
                     <h4 className="text-white font-bold mb-4">Retailers</h4>
                     <ul className="space-y-2 text-sm">
-                        <li><a href="#" className="hover:text-white transition-colors">Apply for Account</a></li>
-                        <li><a href="#" className="hover:text-white transition-colors">Catalog</a></li>
-                        <li><a href="#" className="hover:text-white transition-colors">Return Policy</a></li>
-                        <li><a href="#" className="hover:text-white transition-colors">Shipping FAQ</a></li>
+                        <li><a href="/apply" className="hover:text-white transition-colors">Apply for Account</a></li>
+                        <li><a href="/browse-catalog" className="hover:text-white transition-colors">Catalog</a></li>
+                        <li><a href="/how-it-works" className="hover:text-white transition-colors">How it Works</a></li>
                     </ul>
                 </div>
                 <div>
@@ -183,7 +217,7 @@ export default function LandingPage() {
                 </div>
             </div>
             <div className="max-w-7xl mx-auto pt-8 border-t border-slate-800 text-xs text-slate-500 flex justify-between">
-                <p>&copy; 2024 ICONIC Distributions Inc. All rights reserved.</p>
+                <p>&copy; 2026 ICONIC Distributions Inc. All rights reserved.</p>
                 <div className="flex gap-4">
                     <a href="#" className="hover:text-white">Terms</a>
                     <a href="#" className="hover:text-white">Privacy</a>
