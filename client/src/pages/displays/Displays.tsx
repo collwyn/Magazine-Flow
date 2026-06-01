@@ -37,6 +37,9 @@ export default function Displays() {
             <Link href="/displays" className="text-sm font-medium text-primary transition-colors">
                 Displays
             </Link>
+            <Link href="/how-it-works" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+                How it Works
+            </Link>
             <Link href="/login">
                 <Button>Retailer Login</Button>
             </Link>

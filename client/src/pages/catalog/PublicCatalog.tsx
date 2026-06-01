@@ -36,6 +36,9 @@ export default function PublicCatalog() {
             <Link href="/browse-catalog" className="text-sm font-medium text-primary transition-colors">
                 Magazines
             </Link>
+            <Link href="/how-it-works" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+                How it Works
+            </Link>
             <Link href="/login">
                 <Button>Retailer Login</Button>
             </Link>
