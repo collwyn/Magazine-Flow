@@ -1,0 +1,47 @@
+Create a new file client/src/pages/apply/RetailerApplication.tsx. This is a public page — no login required.
+Build a multi-step form with 5 clearly labeled steps using a progress indicator at the top. Use the existing shadcn/ui components (Card, Input, Button, Label, Select, Checkbox, Textarea) and Tailwind CSS styling consistent with the rest of the site.
+Step 1 — Business Information
+
+Legal Business Name (required text input)
+DBA / Trade Name (optional text input)
+Federal Tax ID / EIN (required text input)
+State Resale Certificate Number (optional text input)
+Ownership Structure (required Select: Independent, Franchise, Chain)
+Store Type (required Select: Convenience, Grocery, Pharmacy, Specialty, Airport, Other)
+If "Other" is selected for Store Type, show a text input asking them to specify
+Number of Locations (optional number input)
+Approximate Weekly Foot Traffic (optional Select: Under 500, 500–1,000, 1,000–2,500, 2,500–5,000, Over 5,000)
+
+Step 2 — Location & Address
+
+Physical Store Address: Street, City, State (2-letter), ZIP (all required)
+Toggle/checkbox: "Mailing address is the same as physical address"
+If unchecked, show Mailing Address fields: Street, City, State, ZIP
+
+Step 3 — Contacts & Hours
+
+Three contact sections (Store Manager, Receiving Manager, Accounts Payable) each with Name, Phone, Email fields (all optional but labeled clearly)
+Store Hours: a grid showing Monday–Sunday with Open / Close time inputs for each day, plus a "Closed" checkbox per day
+
+Step 4 — Delivery & Service Preferences
+
+Receiving Hours: Weekdays, Saturday, Sunday (open/close time inputs)
+Delivery Access (multi-select checkboxes): Loading Dock, Front Door, Back Door
+Delivery Restrictions (optional textarea)
+Who signs for deliveries? (optional text input)
+Is this location on an existing Iconic Magazines route? (Yes/No radio). If Yes, show a text input for details.
+Preferred Delivery Frequency (radio: Weekly, Biweekly)
+Services Needed (checkboxes): In-Store Merchandising, Rack Setup, Distributor-Provided Fixtures
+Unsold Inventory Resale Program interest (radio: Yes, No, Decide Later) with a brief description: "Optional program to liquidate unsold inventory on Amazon/eBay. One-time $250 setup fee."
+
+Step 5 — Final Details & Review
+
+Magazine Category Interests (multi-select checkboxes): Fashion, Music, Lifestyle, Culture, Sports, News, Health & Wellness, Business, Other)
+How did you hear about us? (Select: Online Search, Social Media, Referral, Trade Show, Sales Rep, Other)
+Preferred Contact Method (radio: Email, Phone)
+A read-only summary section showing key fields from previous steps so they can review before submitting
+Submit button
+
+On submit: POST to /api/applications. On success, show a full-page thank-you confirmation message: "Your application has been received. An Iconic Magazines representative will be in touch within 2–3 business days." with a button to go back to the home page. On error, show a toast notification.
+Add a "Back" and "Next" button on each step. Validate required fields before allowing progression to the next step. Show clear error messages inline.
+

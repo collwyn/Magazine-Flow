@@ -1,0 +1,11 @@
+In shared/schema.ts, add a new table called retailerApplications. It should store all fields from the retailer onboarding form:
+Business Info: legalBusinessName (text, required), dba (text, optional), ein (text, required), resaleCertNumber (text, optional), ownershipStructure (text, required — one of: independent, franchise, chain), storeType (text, required — one of: convenience, grocery, pharmacy, specialty, airport, other), storeTypeOther (text, optional), numberOfLocations (integer, optional), footTrafficEstimate (text, optional)
+Address: physicalStreet, physicalCity, physicalState, physicalZip (all text, required), mailingStreet, mailingCity, mailingState, mailingZip (all text, optional — only if different)
+Contacts (name/phone/email for each): storeManagerName, storeManagerPhone, storeManagerEmail, receivingManagerName, receivingManagerPhone, receivingManagerEmail, apContactName, apContactPhone, apContactEmail (all text, optional)
+Store Hours: hoursMonOpen, hoursMonClose through hoursSunOpen, hoursSunClose (all text, optional)
+Receiving & Delivery: receivingHoursWeekdayOpen, receivingHoursWeekdayClose, receivingHoursSatOpen, receivingHoursSatClose, receivingHoursSunOpen, receivingHoursSunClose (text, optional), deliveryAccess (text array, optional — values: loading_dock, front_door, back_door), deliveryRestrictions (text, optional), deliverySignee (text, optional), existingRoute (boolean, optional), existingRouteDetails (text, optional)
+Service Preferences: deliveryFrequency (text, optional — weekly or biweekly), needsMerchandising (boolean, default false), needsRackSetup (boolean, default false), needsFixtures (boolean, default false), interestedInResaleProgram (text, optional — yes, no, decide_later)
+Catalog Interests: magazineCategoryInterests (text array, optional), howHeardAboutUs (text, optional), preferredContactMethod (text, optional — email or phone)
+Metadata: status (text, default "pending" — will also support "approved" and "rejected"), adminNotes (text, optional), createdAt (timestamp, default now)
+Also export insertRetailerApplicationSchema using createInsertSchema and export the RetailerApplication and InsertRetailerApplication types.
+After adding the table, run drizzle-kit push to apply the migration to the database.

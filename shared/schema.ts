@@ -73,6 +73,90 @@ export const orderItems = pgTable("order_items", {
   unitPrice: decimal("unit_price", { precision: 10, scale: 2 }).notNull(),
 });
 
+export const retailerApplications = pgTable("retailer_applications", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+
+  // Business Info
+  legalBusinessName: text("legal_business_name").notNull(),
+  dba: text("dba"),
+  ein: text("ein").notNull(),
+  resaleCertNumber: text("resale_cert_number"),
+  ownershipStructure: text("ownership_structure").notNull(),
+  storeType: text("store_type").notNull(),
+  storeTypeOther: text("store_type_other"),
+  numberOfLocations: integer("number_of_locations"),
+  footTrafficEstimate: text("foot_traffic_estimate"),
+
+  // Physical Address
+  physicalStreet: text("physical_street").notNull(),
+  physicalCity: text("physical_city").notNull(),
+  physicalState: text("physical_state").notNull(),
+  physicalZip: text("physical_zip").notNull(),
+
+  // Mailing Address (optional)
+  mailingStreet: text("mailing_street"),
+  mailingCity: text("mailing_city"),
+  mailingState: text("mailing_state"),
+  mailingZip: text("mailing_zip"),
+
+  // Contacts
+  storeManagerName: text("store_manager_name"),
+  storeManagerPhone: text("store_manager_phone"),
+  storeManagerEmail: text("store_manager_email"),
+  receivingManagerName: text("receiving_manager_name"),
+  receivingManagerPhone: text("receiving_manager_phone"),
+  receivingManagerEmail: text("receiving_manager_email"),
+  apContactName: text("ap_contact_name"),
+  apContactPhone: text("ap_contact_phone"),
+  apContactEmail: text("ap_contact_email"),
+
+  // Store Hours
+  hoursMonOpen: text("hours_mon_open"),
+  hoursMonClose: text("hours_mon_close"),
+  hoursTueOpen: text("hours_tue_open"),
+  hoursTueClose: text("hours_tue_close"),
+  hoursWedOpen: text("hours_wed_open"),
+  hoursWedClose: text("hours_wed_close"),
+  hoursThuOpen: text("hours_thu_open"),
+  hoursThuClose: text("hours_thu_close"),
+  hoursFriOpen: text("hours_fri_open"),
+  hoursFriClose: text("hours_fri_close"),
+  hoursSatOpen: text("hours_sat_open"),
+  hoursSatClose: text("hours_sat_close"),
+  hoursSunOpen: text("hours_sun_open"),
+  hoursSunClose: text("hours_sun_close"),
+
+  // Receiving & Delivery
+  receivingHoursWeekdayOpen: text("receiving_hours_weekday_open"),
+  receivingHoursWeekdayClose: text("receiving_hours_weekday_close"),
+  receivingHoursSatOpen: text("receiving_hours_sat_open"),
+  receivingHoursSatClose: text("receiving_hours_sat_close"),
+  receivingHoursSunOpen: text("receiving_hours_sun_open"),
+  receivingHoursSunClose: text("receiving_hours_sun_close"),
+  deliveryAccess: text("delivery_access").array(),
+  deliveryRestrictions: text("delivery_restrictions"),
+  deliverySignee: text("delivery_signee"),
+  existingRoute: boolean("existing_route"),
+  existingRouteDetails: text("existing_route_details"),
+
+  // Service Preferences
+  deliveryFrequency: text("delivery_frequency"),
+  needsMerchandising: boolean("needs_merchandising").default(false),
+  needsRackSetup: boolean("needs_rack_setup").default(false),
+  needsFixtures: boolean("needs_fixtures").default(false),
+  interestedInResaleProgram: text("interested_in_resale_program"),
+
+  // Catalog Interests
+  magazineCategoryInterests: text("magazine_category_interests").array(),
+  howHeardAboutUs: text("how_heard_about_us"),
+  preferredContactMethod: text("preferred_contact_method"),
+
+  // Metadata
+  status: text("status").notNull().default("pending"),
+  adminNotes: text("admin_notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // Insert Schemas
 export const insertUserSchema = createInsertSchema(users, {
   username: z.string().min(3),
@@ -117,6 +201,11 @@ export const insertOrderItemSchema = createInsertSchema(orderItems, {
   id: true,
 });
 
+export const insertRetailerApplicationSchema = createInsertSchema(retailerApplications).omit({
+  id: true,
+  createdAt: true,
+});
+
 // Types
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
@@ -135,3 +224,6 @@ export type Order = typeof orders.$inferSelect;
 
 export type InsertOrderItem = z.infer<typeof insertOrderItemSchema>;
 export type OrderItem = typeof orderItems.$inferSelect;
+
+export type InsertRetailerApplication = z.infer<typeof insertRetailerApplicationSchema>;
+export type RetailerApplication = typeof retailerApplications.$inferSelect;
