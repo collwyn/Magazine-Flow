@@ -16,7 +16,7 @@ import Invoices from "@/pages/invoices/Invoices";
 import Login from "@/pages/auth/Login";
 import LandingPage from "@/pages/LandingPage";
 import HowItWorks from "@/pages/HowItWorks";
-import Apply from "@/pages/Apply";
+import RetailerApplication from "@/pages/apply/RetailerApplication";
 import { AuthProvider } from "@/context/AuthContext";
 import { DataProvider } from "@/context/DataContext";
 
@@ -25,7 +25,7 @@ function Router() {
     <Switch>
       <Route path="/" component={LandingPage} />
       <Route path="/browse-catalog" component={PublicCatalog} />
-      <Route path="/apply" component={Apply} />
+      <Route path="/apply" component={RetailerApplication} />
       <Route path="/how-it-works" component={HowItWorks} />
       <Route path="/login" component={Login} />
       

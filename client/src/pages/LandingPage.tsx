@@ -38,6 +38,7 @@ export default function LandingPage() {
         </div>
         <div className="flex items-center gap-4">
             <a href="#" className="text-sm font-medium hover:text-primary hidden sm:block">Support</a>
+            <Button className="hidden sm:flex" onClick={() => setLocation("/apply")} data-testid="button-nav-apply">Apply Now</Button>
         </div>
       </nav>
 
