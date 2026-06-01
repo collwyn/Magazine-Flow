@@ -6,11 +6,11 @@ import logo from "@assets/generated_images/minimalist_magazine_distribution_logo
 import heroImage from "@assets/generated_images/modern_boutique_magazine_display_rack.png";
 
 const featuredTitles = [
-  { title: "British Vogue", category: "Fashion", initials: "BV" },
-  { title: "Rolling Stone", category: "Music", initials: "RS" },
-  { title: "Interview", category: "Culture", initials: "IN" },
-  { title: "Complex", category: "Culture", initials: "CX" },
-  { title: "Cosmopolitan", category: "Lifestyle", initials: "CO" },
+  { title: "British Vogue", category: "Fashion", cover: "/images/covers/vogue.jpg" },
+  { title: "Rolling Stone", category: "Music", cover: "/images/covers/rolling-stone-steve-lacy.jpg" },
+  { title: "Interview", category: "Culture", cover: "/images/covers/interview-billie.webp" },
+  { title: "Complex", category: "Culture", cover: "/images/covers/complex.jpg" },
+  { title: "Cosmopolitan", category: "Lifestyle", cover: "/images/covers/cosmopolitan.jpg" },
 ];
 
 export default function LandingPage() {
@@ -132,8 +132,8 @@ export default function LandingPage() {
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
                     {featuredTitles.map((mag) => (
                         <div key={mag.title} className="flex flex-col gap-2" data-testid={`card-featured-${mag.title.toLowerCase().replace(/\s+/g, "-")}`}>
-                            <div className="relative rounded-xl overflow-hidden bg-slate-100 aspect-[2/3] flex items-center justify-center">
-                                <span className="text-3xl font-heading font-bold text-slate-300">{mag.initials}</span>
+                            <div className="relative rounded-xl overflow-hidden bg-slate-100 aspect-[2/3]">
+                                <img src={mag.cover} alt={mag.title} className="w-full h-full object-cover" />
                                 <div className="absolute top-2 left-2">
                                     <span className="px-2 py-0.5 rounded-full bg-white/90 text-xs font-semibold text-slate-600 shadow-sm">
                                         {mag.category}
