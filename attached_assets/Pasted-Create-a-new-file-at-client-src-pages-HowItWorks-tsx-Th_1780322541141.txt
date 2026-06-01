@@ -1,0 +1,30 @@
+Create a new file at client/src/pages/HowItWorks.tsx. This is a public-facing informational page for ICONIC Distributions, a small-batch wholesale magazine distributor based in NYC serving small, upscale retail shops.
+The page should match the visual style of the existing LandingPage.tsx and PublicCatalog.tsx — same navigation bar with the ICONIC logo, same fonts, same color tokens, same footer. It is a standalone public page, not wrapped in DashboardLayout.
+The page should have the following sections, in order:
+1. Hero / Intro section
+Headline: "Magazine distribution, made simple." Subheadline: A short sentence explaining that ICONIC supplies curated, small-quantity wholesale magazine stock to independent retail locations across New York City. Include a CTA button that says "Apply for an Account" linking to /login, and a secondary link that says "Browse the Catalog" linking to /browse-catalog.
+2. "How it works" step-by-step section
+Title: "Here's how it works"
+Four numbered steps laid out in a clean grid or vertical flow:
+
+Step 1 — Apply: Submit an application for a wholesale account. Our team reviews each application and reaches out to approved retailers within a few business days.
+Step 2 — Browse & Order: Once approved, you get access to the retailer portal. Browse our curated catalog and place orders with a minimum of 5 copies per title.
+Step 3 — We Deliver: Orders are fulfilled and delivered to your location within NYC (all 5 boroughs). Deliveries can be scheduled weekly or biweekly based on your preference.
+Step 4 — Sell: Stock your shelves, sell to your customers. All sales between ICONIC and the retailer are final — there are no returns or refunds on purchased inventory.
+
+3. "Good to know" / Policy highlights section
+Title: "What to expect"
+Three short info cards covering key policies:
+
+Minimum orders: 5 copies per title, per order.
+All sales final: We don't accept returns. Retailers own their inventory once it ships. An optional resale program (Amazon/eBay) is available for a one-time setup fee for retailers who want help liquidating unsold stock.
+Month-to-month: No long-term contracts. Either party can end the agreement with 5 days' written notice.
+
+4. Who we serve section
+Title: "Built for shops like yours"
+A short paragraph and a few example store types: independent bookstores, boutique gift shops, beauty and lifestyle stores, fashion retailers, specialty food shops, newsstands — any small NYC retailer looking to add magazine inventory without committing to large quantities.
+5. Final CTA section
+Headline: "Ready to stock your shelves?"
+Subheadline: "Apply for a wholesale account and get access to our full catalog."
+A button: "Apply for an Account" linking to /login.
+Use the same nav and footer structure found in PublicCatalog.tsx. Use Lucide icons from the existing icon set where appropriate (e.g. CheckCircle, Truck, BookOpen, ArrowRight). Use Tailwind classes consistent with the rest of the project.
