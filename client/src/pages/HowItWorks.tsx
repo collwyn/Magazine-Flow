@@ -47,7 +47,7 @@ export default function HowItWorks() {
               <Button
                 size="lg"
                 className="h-12 px-8 shadow-lg shadow-primary/20 bg-primary hover:bg-primary/90 transition-all hover:translate-y-[-2px]"
-                onClick={() => setLocation("/login")}
+                onClick={() => setLocation("/apply")}
                 data-testid="button-apply-hero"
               >
                 Apply for an Account <ArrowRight className="ml-2 h-5 w-5" />
@@ -211,7 +211,7 @@ export default function HowItWorks() {
               size="lg"
               variant="secondary"
               className="h-12 px-10 text-primary font-semibold hover:bg-white/90 transition-all hover:translate-y-[-2px] shadow-lg"
-              onClick={() => setLocation("/login")}
+              onClick={() => setLocation("/apply")}
               data-testid="button-apply-cta"
             >
               Apply for an Account <ArrowRight className="ml-2 h-5 w-5" />
@@ -234,7 +234,7 @@ export default function HowItWorks() {
             <div>
               <h4 className="text-white font-bold mb-4">Retailers</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="/login" className="hover:text-white transition-colors">Apply for Account</a></li>
+                <li><a href="/apply" className="hover:text-white transition-colors">Apply for Account</a></li>
                 <li><a href="/browse-catalog" className="hover:text-white transition-colors">Catalog</a></li>
                 <li><a href="/how-it-works" className="hover:text-white transition-colors">How it Works</a></li>
               </ul>
